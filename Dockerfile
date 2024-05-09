@@ -21,13 +21,14 @@ RUN echo 'alias python="/usr/bin/python3.11"' >> /root/.bashrc
 RUN echo 'alias pip="/usr/bin/python3.11 -m pip"' >> /root/.bashrc
 
 # 作業ディレクトリの設定
-WORKDIR /src
+WORKDIR /work
 
 # ファイルのコピー
-COPY ./ /src
+COPY ./ /work
 
 # pip のインストール
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+RUN cd src && pip install . --root-user-action=ignore
 
 # コンテナ起動時のデフォルトコマンド
 CMD ["/bin/bash"]
